@@ -1,0 +1,9 @@
+sudo crictl -r unix:///var/run/containerd/containerd.sock ps [docker ps]
+export CONTAINER_RUNTIME_ENDPOINT=unix:///var/run/containerd/containerd.sock
+crictl ps
+crictl pods
+crictl stopp <pod id > && crictl rmp <pod id of kube-api server>
+
+
+kubectl proxy --kubeconfig=/home/ubuntu/.kube/config
+sudo kubeadm init phase certs all --apiserver-advertise-address=0.0.0.0 --apiserver-cert-extra-sans=18.204.230.121,172.31.90.245
