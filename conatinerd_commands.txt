@@ -7,3 +7,17 @@ crictl stopp <pod id > && crictl rmp <pod id of kube-api server>
 
 kubectl proxy --kubeconfig=/home/ubuntu/.kube/config
 sudo kubeadm init phase certs all --apiserver-advertise-address=0.0.0.0 --apiserver-cert-extra-sans=18.204.230.121,172.31.90.245
+======
+
+Perform the following to add the k8 cluster to Lens.
+
+sudo rm /etc/kubernetes/pki/apiserver.*
+
+sudo kubeadm init phase certs all --apiserver-advertise-address=0.0.0.0 --apiserver-cert-extra-sans=35.171.153.231,172.31.84.245
+
+
+
+
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
