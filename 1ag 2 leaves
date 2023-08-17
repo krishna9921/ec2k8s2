@@ -1,0 +1,73 @@
+apiVersion: memsql.com/v1alpha1
+kind: MemsqlCluster
+metadata:
+  name: sdb-cluster
+spec:
+  license: BDIwNTY2MzczYmQ3ZTQ0OTBhNzgzYjEzYzI2ZjFlMWYwAAAAAAAAAAAAAAAAAAAAAAMwNQIYRaxfeh15wzJd+mHRW78Xv6PGnh1vlSnSAhkAk/Fw+QJCKDeEhFb5ed7DvMhGvijPZrHFAA==
+  adminHashedPassword: "*7EE969BBE0A3985C8BFF9FA65A06345C67FE434A"
+  nodeImage:
+    repository: singlestore/node
+    tag: alma-8.0.22-5f4a041ae5
+  redundancyLevel: 1
+  serviceSpec:
+    objectMetaOverrides: null
+    labels:
+      custom: label
+    annotations:
+      custom: annotations
+  aggregatorSpec:
+    count: 1
+    height: 0.125
+    storageGB: 10
+    storageClass: standard
+    objectMetaOverrides:
+      annotations:
+        optional: annotation
+      labels:
+        optional: label
+  leafSpec:
+    count: 2
+    height: 0.125
+    storageGB: 10
+    storageClass: standard
+    objectMetaOverrides: null
+    annotations:
+      optional: annotation
+    labels:
+      optional: label
+  schedulingDetails:
+    master:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-172-31-82-213
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: sdb-cluster
+            topologyKey: kubernetes.io/hostname
+
+    leaf-ag1:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-172-31-89-145
+                - ip-172-31-92-117
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: sdb-cluster
+            topologyKey: kubernetes.io/hostname
+
