@@ -1,0 +1,69 @@
+ubuntu@ip-172-31-84-245:~/pv$ cat pv_master.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s2-pvmaster
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  local:
+    path: /mnt/data/pv
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-82-213
+ubuntu@ip-172-31-84-245:~/pv$ cat pv_leaf1.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s2-pvleaf1
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  local:
+    path: /mnt/data/pv
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-89-145
+ubuntu@ip-172-31-84-245:~/pv$ cat pv_leaf2.yml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: s2-pvleaf1-1
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: standard
+  local:
+    path: /mnt/data/pv
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-92-117
