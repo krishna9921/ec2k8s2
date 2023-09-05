@@ -1,0 +1,12 @@
+backupSpec:
+    CloudServiceProvider: "Azure"
+    bucketName: "support/phani"
+    schedule: "56 13 * * *"
+    s3Region: ""
+    secretName: "azure-credential"
+  serviceSpec:
+    objectMetaOverrides:
+    labels:
+      custom: label
+    annotations:
+      custom: annotations
